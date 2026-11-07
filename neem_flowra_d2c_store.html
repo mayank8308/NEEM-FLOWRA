@@ -1,0 +1,1476 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Neem Flowra | Tri-Neem + 4% Niacinamide Serum</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#F0F7F4',
+              100: '#D8F3DC',
+              200: '#B7E4C7',
+              300: '#95D5B2',
+              400: '#74C69D',
+              500: '#52B788',
+              600: '#40916C',
+              700: '#2D6A4F',
+              800: '#1B4332',
+              900: '#081C15',
+              gold: '#C5A059',
+              goldLight: '#F3E5C8'
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', '"Noto Sans Devanagari"', 'sans-serif'],
+            serif: ['"Playfair Display"', 'serif'],
+            hindi: ['"Noto Sans Devanagari"', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Zoom Root Scaling */
+    :root {
+      --ui-scale: 1;
+    }
+    #site-container {
+      transform-origin: top center;
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #74C69D;
+      border-radius: 9999px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #F0F7F4;
+    }
+    /* Comparison Slider */
+    .comparison-container {
+      position: relative;
+      overflow: hidden;
+      user-select: none;
+    }
+    .comparison-image-top {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      overflow: hidden;
+    }
+    /* Magnifier */
+    .zoom-lens {
+      cursor: crosshair;
+    }
+    @keyframes pulse-subtle {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.04); opacity: 0.9; }
+    }
+    .pulse-glow {
+      animation: pulse-subtle 3s infinite ease-in-out;
+    }
+  </style>
+</head>
+<body class="bg-[#FAFDFB] text-slate-800 font-sans antialiased selection:bg-brand-500 selection:text-white">
+
+  <!-- ==================== ACCESSIBILITY & UTILITY TOP BAR ==================== -->
+  <div class="bg-brand-900 text-brand-100 text-xs px-4 py-2 border-b border-brand-800 sticky top-0 z-50 shadow-md">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
+      <!-- Announcement Ticker -->
+      <div class="flex items-center space-x-2">
+        <span class="bg-brand-700 text-amber-300 font-bold px-2 py-0.5 rounded-full text-[10px] uppercase tracking-wider animate-pulse" data-i18n="badge_launch">LAUNCH SPECIAL</span>
+        <span class="text-slate-200" data-i18n="top_bar_announcement">🌿 India's 1st Steam-Distilled Tri-Neem Ark + 4% Niacinamide Serum | <strong>Flat 27% OFF Today | Neem Flowra</strong></span>
+      </div>
+
+      <!-- Controls: Zoom In / Zoom Out / Reset + Language Switcher -->
+      <div class="flex items-center space-x-4">
+        <!-- Zoom Controls -->
+        <div class="flex items-center space-x-1 bg-brand-800/80 px-2 py-0.5 rounded-md border border-brand-700">
+          <span class="text-[11px] text-brand-200 mr-1 font-medium hidden sm:inline" data-i18n="zoom_label">Zoom:</span>
+          <button id="zoom-out-btn" class="w-6 h-6 rounded hover:bg-brand-700 flex items-center justify-center text-brand-100 transition" title="Zoom Out (-)">
+            <i class="fa-solid fa-magnifying-glass-minus text-[11px]"></i>
+          </button>
+          <span id="zoom-display" class="text-[10px] font-bold text-amber-300 px-1">100%</span>
+          <button id="zoom-in-btn" class="w-6 h-6 rounded hover:bg-brand-700 flex items-center justify-center text-brand-100 transition" title="Zoom In (+)">
+            <i class="fa-solid fa-magnifying-glass-plus text-[11px]"></i>
+          </button>
+          <button id="zoom-reset-btn" class="text-[10px] px-1 text-slate-300 hover:text-white underline ml-1" title="Reset Zoom" data-i18n="zoom_reset">Reset</button>
+        </div>
+
+        <!-- Language Selector -->
+        <div class="flex items-center space-x-1 bg-brand-800/80 px-2 py-0.5 rounded-md border border-brand-700">
+          <i class="fa-solid fa-globe text-brand-300 text-xs"></i>
+          <select id="lang-select" class="bg-transparent text-white text-xs font-semibold focus:outline-none cursor-pointer">
+            <option value="en" class="bg-brand-900 text-white">English</option>
+            <option value="hi" class="bg-brand-900 text-white">हिन्दी (Hindi)</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SITE WRAPPER (FOR ZOOM SCALING) -->
+  <div id="site-container" class="w-full origin-top">
+
+    <!-- ==================== HEADER & NAVBAR ==================== -->
+    <header class="bg-white/95 backdrop-blur-md border-b border-brand-100 sticky top-10 z-40 transition-all shadow-sm">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+        
+        <!-- Brand Logo -->
+        <div class="flex items-center space-x-3">
+          <div class="w-11 h-11 rounded-full bg-gradient-to-tr from-brand-800 via-brand-700 to-brand-500 flex items-center justify-center shadow-md shadow-brand-900/10">
+            <i class="fa-solid fa-spa text-amber-200 text-xl"></i>
+          </div>
+          <div>
+            <span class="font-serif text-2xl font-bold tracking-tight text-brand-900 block leading-tight">NEEM FLOWRA</span>
+            <span class="text-[10px] uppercase font-bold tracking-[0.25em] text-brand-600 block">PURE BOTANICAL • AYUR-SCIENCE</span>
+          </div>
+        </div>
+
+        <!-- Desktop Navigation -->
+        <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-700">
+          <a href="#product" class="hover:text-brand-700 transition" data-i18n="nav_product">The Serum</a>
+          <a href="#formula" class="hover:text-brand-700 transition" data-i18n="nav_formula">Science & Formula</a>
+          <a href="#results" class="hover:text-brand-700 transition" data-i18n="nav_results">Before & After</a>
+          <a href="#routine" class="hover:text-brand-700 transition" data-i18n="nav_quiz">Skin Matcher</a>
+          <a href="#reviews" class="hover:text-brand-700 transition" data-i18n="nav_reviews">Reviews (1,420+)</a>
+        </nav>
+
+        <!-- Right Action: Cart & Buy Button -->
+        <div class="flex items-center space-x-4">
+          <!-- Cart Button -->
+          <button id="cart-drawer-toggle" class="relative p-2.5 text-slate-700 hover:text-brand-700 hover:bg-brand-50 rounded-full transition">
+            <i class="fa-solid fa-bag-shopping text-xl"></i>
+            <span id="cart-counter" class="absolute top-1 right-1 w-5 h-5 bg-brand-600 text-white text-[11px] font-bold rounded-full flex items-center justify-center ring-2 ring-white">1</span>
+          </button>
+
+          <!-- Quick Buy Header Button -->
+          <a href="#product" class="hidden sm:inline-flex items-center px-5 py-2.5 rounded-full bg-brand-800 text-amber-300 font-semibold text-xs tracking-wider uppercase hover:bg-brand-900 hover:shadow-lg transition shadow-md shadow-brand-900/10" data-i18n="btn_order_now">
+            ORDER NOW ₹399
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- ==================== HERO SECTION (PRODUCT PAGE D2C) ==================== -->
+    <section id="product" class="pt-8 pb-16 lg:py-16 bg-gradient-to-b from-[#F2F8F5] via-white to-brand-50/30">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Breadcrumb & Badges -->
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-6 text-xs text-slate-500">
+          <div class="flex items-center space-x-2">
+            <span>Home</span>
+            <i class="fa-solid fa-chevron-right text-[10px]"></i>
+            <span>Barrier Repair Serums</span>
+            <i class="fa-solid fa-chevron-right text-[10px]"></i>
+            <span class="text-brand-700 font-bold">Tri-Neem + 4% Niacinamide</span>
+          </div>
+          <div class="flex items-center space-x-1.5 text-amber-500 font-bold bg-amber-50 px-2.5 py-1 rounded-full border border-amber-200">
+            <i class="fa-solid fa-certificate"></i>
+            <span data-i18n="hero_verified_badge">AYUSH GMP &amp; CDSCO Compliant</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+
+          <!-- ================= LEFT: PRODUCT IMAGERY & INTERACTIVE ZOOM ================= -->
+          <div class="lg:col-span-6 flex flex-col gap-4 sticky top-32">
+            
+            <!-- Main Hero Display Card -->
+            <div class="relative bg-gradient-to-tr from-brand-100/40 via-white to-amber-50/40 rounded-3xl p-6 sm:p-8 border border-brand-200/70 shadow-xl overflow-hidden group">
+              
+              <!-- Badges Over Product -->
+              <div class="absolute top-4 left-4 z-20 flex flex-col gap-2">
+                <span class="bg-brand-800 text-amber-300 text-[11px] font-bold px-3 py-1 rounded-full shadow-sm flex items-center gap-1.5">
+                  <i class="fa-solid fa-droplet text-brand-300"></i>
+                  <span data-i18n="badge_goldilocks">4% Goldilocks Ratio</span>
+                </span>
+                <span class="bg-white/90 backdrop-blur text-brand-900 border border-brand-300 text-[10px] font-semibold px-2.5 py-0.5 rounded-full shadow-sm">
+                  🌱 100% Whole-Tree Neem Arks
+                </span>
+              </div>
+
+              <!-- Zoom Instruction Tooltip -->
+              <div class="absolute top-4 right-4 z-20">
+                <button id="open-zoom-modal-btn" class="bg-white/90 hover:bg-white text-brand-800 p-2.5 rounded-full shadow-md border border-brand-200 transition" title="Click to view ultra high-res zoom">
+                  <i class="fa-solid fa-maximize text-sm"></i>
+                </button>
+              </div>
+
+              <!-- Main Interactive Image -->
+              <div id="product-lens-container" class="relative w-full h-[400px] sm:h-[460px] flex items-center justify-center cursor-zoom-in zoom-lens">
+                <!-- SVG Vector of Authentic 30ml Amber Glass Bottle with Neem Green Dropper Cap -->
+                <svg id="hero-bottle-svg" viewBox="0 0 400 520" class="w-full h-full max-h-[460px] drop-shadow-2xl transition-transform duration-300 group-hover:scale-105" xmlns="http://www.w3.org/2000/svg">
+                  <!-- Defs for realistic gradients -->
+                  <defs>
+                    <linearGradient id="amberGlass" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" stop-color="#4A2511"/>
+                      <stop offset="25%" stop-color="#8C461E"/>
+                      <stop offset="50%" stop-color="#D97A38" stop-opacity="0.95"/>
+                      <stop offset="75%" stop-color="#8C461E"/>
+                      <stop offset="100%" stop-color="#3D1C0B"/>
+                    </linearGradient>
+                    <linearGradient id="neemGreenCap" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" stop-color="#2D5A27"/>
+                      <stop offset="50%" stop-color="#4B8B3B"/>
+                      <stop offset="100%" stop-color="#244A1E"/>
+                    </linearGradient>
+                    <linearGradient id="dropperBulb" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" stop-color="#32632C"/>
+                      <stop offset="50%" stop-color="#559C43"/>
+                      <stop offset="100%" stop-color="#22471D"/>
+                    </linearGradient>
+                    <linearGradient id="glassShine" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.4"/>
+                      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+                    </linearGradient>
+                    <filter id="softShadow" x="-10%" y="-10%" width="120%" height="130%">
+                      <feDropShadow dx="0" dy="15" stdDeviation="12" flood-color="#081C15" flood-opacity="0.25"/>
+                    </filter>
+                  </defs>
+
+                  <!-- Cast Shadow on Surface -->
+                  <ellipse cx="200" cy="485" rx="90" ry="16" fill="#081C15" opacity="0.18" filter="url(#softShadow)"/>
+
+                  <!-- Natural Neem Twigs & Leaves in Background -->
+                  <g opacity="0.85">
+                    <!-- Botanical Neem Leaf Left -->
+                    <path d="M90,320 C60,260 40,210 65,170 C90,210 110,240 115,290 Z" fill="#40916C" opacity="0.6"/>
+                    <path d="M70,300 C40,240 20,200 50,150 C70,195 90,230 95,270 Z" fill="#52B788" opacity="0.5"/>
+                    <!-- Neem Twig Base -->
+                    <rect x="70" y="445" width="260" height="14" rx="7" fill="#6B4226" transform="rotate(-6 200 450)"/>
+                    <rect x="80" y="442" width="240" height="6" rx="3" fill="#8B5A2B" opacity="0.6" transform="rotate(-6 200 450)"/>
+                  </g>
+
+                  <!-- 30ml Bottle Body (Amber Glass) -->
+                  <rect x="135" y="195" width="130" height="260" rx="26" fill="url(#amberGlass)" filter="url(#softShadow)"/>
+                  
+                  <!-- Serum Fill Level (Pale Herbal Greenish Amber liquid view through glass) -->
+                  <rect x="140" y="215" width="120" height="230" rx="18" fill="#5E7D38" opacity="0.25"/>
+
+                  <!-- Glass Highlight Sheen -->
+                  <path d="M145,210 Q155,300 150,440" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" opacity="0.45"/>
+                  <path d="M255,210 Q250,300 252,440" stroke="#000000" stroke-width="4" stroke-linecap="round" opacity="0.3"/>
+
+                  <!-- Premium Bottle Front Sticker (Matte Cream White Label) -->
+                  <rect x="146" y="235" width="108" height="185" rx="6" fill="#F8FCF9" stroke="#E2EBE5" stroke-width="1.5"/>
+                  
+                  <!-- Label Header: Logo -->
+                  <g transform="translate(200, 255)">
+                    <!-- Leaf icon -->
+                    <path d="M0,-8 C-5,-2 -5,4 0,7 C5,4 5,-2 0,-8 Z" fill="#2D6A4F"/>
+                    <text y="15" font-family="'Plus Jakarta Sans', sans-serif" font-size="7.5" font-weight="800" text-anchor="middle" fill="#1B4332" letter-spacing="1.2">NEEM FLOWRA</text>
+                    <text y="23" font-family="'Plus Jakarta Sans', sans-serif" font-size="4.5" font-weight="700" text-anchor="middle" fill="#52B788" letter-spacing="0.8">AYUR-BOTANICS</text>
+                  </g>
+
+                  <!-- Label Hero Title -->
+                  <text x="200" y="295" font-family="'Plus Jakarta Sans', sans-serif" font-size="10.5" font-weight="800" text-anchor="middle" fill="#1B4332">TRI-NEEM +</text>
+                  <text x="200" y="309" font-family="'Plus Jakarta Sans', sans-serif" font-size="9" font-weight="800" text-anchor="middle" fill="#2D6A4F">4% NIACINAMIDE</text>
+
+                  <text x="200" y="322" font-family="'Plus Jakarta Sans', sans-serif" font-size="6.5" font-weight="700" text-anchor="middle" fill="#081C15">Barrier Clarifying Serum</text>
+
+                  <!-- Actives Deck -->
+                  <text x="200" y="337" font-family="'Plus Jakarta Sans', sans-serif" font-size="4.8" font-weight="600" text-anchor="middle" fill="#40916C">Steam-Distilled Whole Neem Arks</text>
+                  <text x="200" y="344" font-family="'Plus Jakarta Sans', sans-serif" font-size="4.8" font-weight="600" text-anchor="middle" fill="#40916C">+ Cica + Zinc PCA + HA</text>
+
+                  <line x1="165" y1="352" x2="235" y2="352" stroke="#B7E4C7" stroke-width="0.8"/>
+
+                  <text x="200" y="363" font-family="'Plus Jakarta Sans', sans-serif" font-size="5.2" font-weight="700" text-anchor="middle" fill="#1B4332">Non-Comedogenic • Fast Absorb</text>
+                  <text x="200" y="372" font-family="'Plus Jakarta Sans', sans-serif" font-size="5" text-anchor="middle" fill="#475569">For Acne-Prone &amp; Sensitive Skin</text>
+
+                  <text x="200" y="402" font-family="'Plus Jakarta Sans', sans-serif" font-size="6" font-weight="800" text-anchor="middle" fill="#1B4332">Net Vol: 30 ml (1.01 fl. oz.)</text>
+
+                  <!-- Bottle Neck -->
+                  <rect x="178" y="168" width="44" height="28" fill="url(#amberGlass)"/>
+                  <rect x="175" y="180" width="50" height="6" rx="2" fill="#3D1C0B"/>
+
+                  <!-- Neem Green Matte Cap Collar -->
+                  <rect x="173" y="125" width="54" height="46" rx="4" fill="url(#neemGreenCap)" filter="url(#softShadow)"/>
+                  <!-- Collar thread lines -->
+                  <line x1="175" y1="133" x2="225" y2="133" stroke="#559C43" stroke-width="1.2" opacity="0.6"/>
+                  <line x1="175" y1="162" x2="225" y2="162" stroke="#1B4332" stroke-width="1.2" opacity="0.8"/>
+
+                  <!-- Neem Green Matte Squeeze Dropper Bulb -->
+                  <path d="M185,125 C185,92 192,72 200,72 C208,72 215,92 215,125 Z" fill="url(#dropperBulb)" filter="url(#softShadow)"/>
+                  <!-- Bulb highlight -->
+                  <path d="M192,120 C192,95 196,82 200,82" stroke="#74C69D" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+                </svg>
+
+                <div class="absolute bottom-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full border border-brand-200 text-[11px] text-brand-800 font-semibold shadow-sm flex items-center gap-1.5 pointer-events-none">
+                  <i class="fa-solid fa-magnifying-glass"></i>
+                  <span data-i18n="click_to_zoom">Click to examine 30ml bottle &amp; label</span>
+                </div>
+              </div>
+
+              <!-- Product Feature Badges Grid -->
+              <div class="grid grid-cols-4 gap-2 pt-4 border-t border-brand-200/60 mt-4 text-center">
+                <div class="p-2 bg-white rounded-xl border border-brand-100 shadow-sm">
+                  <i class="fa-solid fa-flask-vial text-brand-600 text-lg mb-1 block"></i>
+                  <span class="text-[10px] font-bold text-slate-700 block" data-i18n="feat_derma">Dermat Tested</span>
+                </div>
+                <div class="p-2 bg-white rounded-xl border border-brand-100 shadow-sm">
+                  <i class="fa-solid fa-leaf text-brand-600 text-lg mb-1 block"></i>
+                  <span class="text-[10px] font-bold text-slate-700 block" data-i18n="feat_vegan">100% Vegan</span>
+                </div>
+                <div class="p-2 bg-white rounded-xl border border-brand-100 shadow-sm">
+                  <i class="fa-solid fa-ban text-brand-600 text-lg mb-1 block"></i>
+                  <span class="text-[10px] font-bold text-slate-700 block" data-i18n="feat_no_frag">Zero Fragrance</span>
+                </div>
+                <div class="p-2 bg-white rounded-xl border border-brand-100 shadow-sm">
+                  <i class="fa-solid fa-shield-halved text-brand-600 text-lg mb-1 block"></i>
+                  <span class="text-[10px] font-bold text-slate-700 block" data-i18n="feat_purging">No Purging</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Authentic Trust Reassurance Card -->
+            <div class="p-4 bg-brand-50/70 rounded-2xl border border-brand-200 flex items-center justify-between text-xs text-brand-900">
+              <div class="flex items-center space-x-2">
+                <i class="fa-solid fa-truck-fast text-brand-700 text-base"></i>
+                <span data-i18n="dispatch_guarantee"><strong>Dispatches within 24 Hours</strong> from Greater Noida Hub</span>
+              </div>
+              <span class="bg-brand-200 text-brand-800 text-[10px] font-bold px-2 py-0.5 rounded">Fast Express</span>
+            </div>
+          </div>
+
+          <!-- ================= RIGHT: CONVERTING OFFER, PRICING & ACTIONS ================= -->
+          <div class="lg:col-span-6 flex flex-col gap-6">
+
+            <!-- Star Rating & Review Hook -->
+            <div>
+              <div class="flex items-center space-x-2 mb-2">
+                <div class="flex text-amber-400 text-sm">
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star-half-stroke"></i>
+                </div>
+                <span class="text-xs font-bold text-slate-900">4.9 / 5.0</span>
+                <span class="text-xs text-slate-500">• (1,428 <span data-i18n="verified_reviews_count">Verified Indian Reviews</span>)</span>
+              </div>
+
+              <!-- Main Heading -->
+              <h1 class="text-2xl sm:text-3xl lg:text-4xl font-serif font-bold text-brand-900 leading-tight">
+                Neem Flowra Tri-Neem + 4% Niacinamide
+              </h1>
+              <p class="text-base sm:text-lg font-medium text-brand-700 mt-1" data-i18n="product_tagline">
+                Barrier Clarifying Face Serum (100% Steam-Distilled Whole Neem Arks)
+              </p>
+            </div>
+
+            <!-- Short Pain-Point Hook -->
+            <p class="text-sm text-slate-600 leading-relaxed" data-i18n="hero_description">
+              Formulated specifically for Indian skin in humid &amp; polluted climates. <strong>Neem Flowra</strong> combines clear steam distillates of Neem seed, twig &amp; leaf with the clinical 4% Niacinamide Goldilocks ratio, Zinc PCA, and Cica. Eliminates acne-causing bacteria and fades stubborn dark spots without peeling or purging.
+            </p>
+
+            <!-- Price & Launch Discount Box -->
+            <div class="bg-gradient-to-r from-brand-50 to-amber-50/50 p-5 rounded-2xl border border-brand-200/80">
+              <div class="flex items-baseline space-x-3">
+                <span class="text-3xl font-extrabold text-brand-900">₹399</span>
+                <span class="text-lg text-slate-400 line-through">₹549</span>
+                <span class="bg-rose-100 text-rose-700 text-xs font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">
+                  27% OFF
+                </span>
+                <span class="text-xs text-brand-700 font-semibold ml-auto" data-i18n="inclusive_taxes">(Incl. of all taxes)</span>
+              </div>
+
+              <!-- Real-time Low Stock Urgency -->
+              <div class="mt-3 flex items-center justify-between text-xs text-amber-800">
+                <span class="flex items-center gap-1.5 font-medium">
+                  <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+                  <span data-i18n="batch_alert">Fresh Batch NF-001 In Stock</span>
+                </span>
+                <span class="font-bold text-rose-600" data-i18n="limited_bottles">Only 38 bottles left for today's dispatch!</span>
+              </div>
+            </div>
+
+            <!-- Quantity & Actions -->
+            <div class="space-y-4">
+              <!-- Quantity selector -->
+              <div class="flex items-center space-x-4">
+                <span class="text-xs font-bold text-slate-700 uppercase tracking-wider" data-i18n="quantity_label">Quantity:</span>
+                <div class="flex items-center border border-brand-300 rounded-xl overflow-hidden bg-white shadow-sm">
+                  <button id="qty-minus" class="px-3.5 py-2 text-slate-600 hover:bg-brand-50 transition font-bold">-</button>
+                  <span id="qty-count" class="px-4 py-2 font-bold text-sm text-brand-900">1</span>
+                  <button id="qty-plus" class="px-3.5 py-2 text-slate-600 hover:bg-brand-50 transition font-bold">+</button>
+                </div>
+                <span class="text-xs text-emerald-700 font-semibold" data-i18n="bottle_size_note">30 ml (approx. 45 days daily AM/PM usage)</span>
+              </div>
+
+              <!-- Primary CTA Buttons -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <button id="add-to-cart-btn" class="w-full py-4 px-6 rounded-2xl bg-white border-2 border-brand-800 text-brand-900 font-bold text-sm hover:bg-brand-50 transition shadow-sm flex items-center justify-center gap-2">
+                  <i class="fa-solid fa-bag-shopping"></i>
+                  <span data-i18n="btn_add_to_cart">ADD TO CART</span>
+                </button>
+                <button id="buy-now-btn" class="w-full py-4 px-6 rounded-2xl bg-brand-800 hover:bg-brand-900 text-amber-300 font-bold text-sm transition shadow-lg shadow-brand-900/20 flex items-center justify-center gap-2 group">
+                  <span data-i18n="btn_express_checkout">BUY NOW (EXPRESS UPI)</span>
+                  <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                </button>
+              </div>
+
+              <!-- Security Payment Badges -->
+              <div class="flex items-center justify-center space-x-6 text-slate-400 text-xs pt-1">
+                <span class="flex items-center gap-1"><i class="fa-brands fa-google-pay text-base text-slate-600"></i> UPI Accepted</span>
+                <span class="flex items-center gap-1"><i class="fa-solid fa-shield-check text-emerald-600"></i> 256-Bit SSL Encrypted</span>
+                <span class="flex items-center gap-1"><i class="fa-solid fa-box-check text-slate-600"></i> Cash on Delivery</span>
+              </div>
+            </div>
+
+            <!-- PINCODE DELIVERY CHECKER -->
+            <div class="p-4 bg-white rounded-2xl border border-slate-200 shadow-sm space-y-2">
+              <label for="pincode-input" class="block text-xs font-bold text-slate-700 uppercase tracking-wider" data-i18n="delivery_checker_label">
+                Check Delivery &amp; COD Availability:
+              </label>
+              <div class="flex gap-2">
+                <input id="pincode-input" type="text" maxlength="6" placeholder="Enter 6-digit Pincode (e.g. 201301)" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500">
+                <button id="pincode-check-btn" class="px-5 py-2.5 bg-brand-700 hover:bg-brand-800 text-white rounded-xl text-xs font-bold transition whitespace-nowrap" data-i18n="btn_check">
+                  CHECK
+                </button>
+              </div>
+              <div id="pincode-result" class="text-xs pt-1"></div>
+            </div>
+
+            <!-- Key Ingredient Quick Ribbons -->
+            <div class="border-t border-slate-200 pt-5 space-y-3">
+              <h3 class="text-xs font-bold uppercase tracking-wider text-slate-500" data-i18n="actives_breakdown_title">The 5 Core Active Pillars:</h3>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                <div class="flex items-start gap-2 p-2.5 rounded-xl bg-brand-50/60 border border-brand-100">
+                  <span class="text-emerald-700 text-sm mt-0.5">🌿</span>
+                  <div>
+                    <strong class="text-brand-900 block" data-i18n="ing_neem_title">Steam-Distilled Whole Neem</strong>
+                    <span class="text-slate-600" data-i18n="ing_neem_desc">Twig + Seed distillates kill acne bacteria without oily smell.</span>
+                  </div>
+                </div>
+                <div class="flex items-start gap-2 p-2.5 rounded-xl bg-brand-50/60 border border-brand-100">
+                  <span class="text-emerald-700 text-sm mt-0.5">💧</span>
+                  <div>
+                    <strong class="text-brand-900 block" data-i18n="ing_nia_title">4% Niacinamide (Goldilocks)</strong>
+                    <span class="text-slate-600" data-i18n="ing_nia_desc">Regulates sebum &amp; fades marks without burning or redness.</span>
+                  </div>
+                </div>
+                <div class="flex items-start gap-2 p-2.5 rounded-xl bg-brand-50/60 border border-brand-100">
+                  <span class="text-emerald-700 text-sm mt-0.5">🌱</span>
+                  <div>
+                    <strong class="text-brand-900 block" data-i18n="ing_cica_title">1.5% Pure Cica (Centella)</strong>
+                    <span class="text-slate-600" data-i18n="ing_cica_desc">Rapidly extinguishes cystic redness &amp; speeds healing.</span>
+                  </div>
+                </div>
+                <div class="flex items-start gap-2 p-2.5 rounded-xl bg-brand-50/60 border border-brand-100">
+                  <span class="text-emerald-700 text-sm mt-0.5">✨</span>
+                  <div>
+                    <strong class="text-brand-900 block" data-i18n="ing_zinc_title">0.5% Zinc PCA &amp; Hyaluronic</strong>
+                    <span class="text-slate-600" data-i18n="ing_zinc_desc">Controls all-day grease while locking in weightless hydration.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== BEFORE & AFTER INTERACTIVE SLIDER ==================== -->
+    <section id="results" class="py-16 bg-white border-y border-brand-100">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6">
+        <div class="text-center max-w-2xl mx-auto mb-10">
+          <span class="text-brand-600 text-xs font-bold tracking-widest uppercase mb-2 block" data-i18n="clinical_proof_tag">CLINICAL OBSERVATION (14 DAYS)</span>
+          <h2 class="text-3xl font-serif font-bold text-brand-900" data-i18n="ba_heading">Real Visible Skin Recovery</h2>
+          <p class="text-sm text-slate-600 mt-2" data-i18n="ba_subheading">Drag the slider to see how the combination of Neem steam distillate and 4% Niacinamide calmed active redness and balanced excessive sebum in two weeks.</p>
+        </div>
+
+        <!-- The Slider Card -->
+        <div class="max-w-3xl mx-auto bg-slate-900 rounded-3xl overflow-hidden shadow-2xl relative border-4 border-brand-100">
+          <div id="comparison-slider-wrapper" class="comparison-container w-full h-[360px] sm:h-[440px] relative cursor-ew-resize">
+            
+            <!-- Bottom Image (Day 14 - Clean & Calmed Skin) -->
+            <div class="w-full h-full bg-gradient-to-tr from-[#E8F5E9] via-[#F1F8E9] to-white flex items-center justify-center p-8 text-center">
+              <div class="max-w-md">
+                <div class="w-20 h-20 mx-auto rounded-full bg-brand-100 border-2 border-brand-500 flex items-center justify-center mb-4 text-brand-700 text-3xl shadow-inner">
+                  <i class="fa-solid fa-sparkles"></i>
+                </div>
+                <span class="bg-brand-700 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-2 inline-block">DAY 14: AFTER</span>
+                <h3 class="text-xl font-bold text-brand-900 mt-2">Smooth, Matte, Healed Skin Barrier</h3>
+                <p class="text-xs text-brand-800 mt-1">Acne redness calmed by 89%, sebum shine reduced by 94%, post-breakout dark spots visibly lightening with intact skin moisture.</p>
+              </div>
+            </div>
+
+            <!-- Top Clipped Image (Day 1 - Active Breakout & Shiny Sebum) -->
+            <div id="comparison-top-layer" class="comparison-image-top w-1/2 bg-gradient-to-tr from-[#FFF3E0] via-[#FFEBEE] to-[#FCE4EC] flex items-center justify-center p-8 text-center border-r-2 border-white">
+              <div class="max-w-md">
+                <div class="w-20 h-20 mx-auto rounded-full bg-rose-100 border-2 border-rose-400 flex items-center justify-center mb-4 text-rose-600 text-3xl shadow-inner">
+                  <i class="fa-solid fa-face-frown-open"></i>
+                </div>
+                <span class="bg-rose-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-2 inline-block">DAY 1: BEFORE</span>
+                <h3 class="text-xl font-bold text-rose-950 mt-2">Active Cystic Redness &amp; Excess Shine</h3>
+                <p class="text-xs text-rose-800 mt-1">Clogged pores, microbial irritation from pollution &amp; sweat, inflamed pimples aggravated by harsh chemical stripping.</p>
+              </div>
+            </div>
+
+            <!-- Divider Line & Drag Handle -->
+            <div id="comparison-handle" class="absolute top-0 bottom-0 left-1/2 -ml-5 w-10 flex items-center justify-center pointer-events-none z-30">
+              <div class="w-1 h-full bg-white shadow-md"></div>
+              <div class="absolute w-10 h-10 bg-brand-800 border-2 border-white rounded-full flex items-center justify-center text-amber-300 shadow-xl">
+                <i class="fa-solid fa-arrows-left-right text-xs"></i>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Bottom Caption -->
+          <div class="bg-brand-900 text-brand-100 px-6 py-3 flex items-center justify-between text-xs">
+            <span>👈 Day 1 (Aggravated Skin)</span>
+            <span class="text-amber-300 font-semibold" data-i18n="slider_instruction">Slide Left / Right to Compare</span>
+            <span>Day 14 (Barrier Restored) 👉</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================== TABBED SCIENCE & DETAILED FORMULA ==================== -->
+    <section id="formula" class="py-16 bg-[#F8FAF9]">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6">
+        <div class="text-center max-w-2xl mx-auto mb-10">
+          <span class="text-brand-600 text-xs font-bold tracking-widest uppercase mb-2 block" data-i18n="formula_tab_badge">TRANSPARENT AYUR-SCIENCE</span>
+          <h2 class="text-3xl font-serif font-bold text-brand-900" data-i18n="formula_section_title">Nothing to Hide: Complete Formulation Breakdown</h2>
+          <p class="text-sm text-slate-600 mt-2" data-i18n="formula_section_subtitle">Explore the precise botanical science, INCI compliance, and why 4% Niacinamide beats the common 10% overdose.</p>
+        </div>
+
+        <!-- Tab Header Buttons -->
+        <div class="flex flex-wrap items-center justify-center gap-2 mb-8">
+          <button class="tab-btn active px-5 py-2.5 rounded-full text-xs font-bold tracking-wider uppercase transition bg-brand-800 text-white shadow-md" data-target="tab-inci">
+            🌿 Complete INCI List
+          </button>
+          <button class="tab-btn px-5 py-2.5 rounded-full text-xs font-bold tracking-wider uppercase transition bg-white text-slate-700 hover:bg-brand-50 border border-slate-200" data-target="tab-why4">
+            ⚖️ 4% vs 10% Niacinamide
+          </button>
+          <button class="tab-btn px-5 py-2.5 rounded-full text-xs font-bold tracking-wider uppercase transition bg-white text-slate-700 hover:bg-brand-50 border border-slate-200" data-target="tab-usage">
+            🧴 How to Use (AM / PM)
+          </button>
+          <button class="tab-btn px-5 py-2.5 rounded-full text-xs font-bold tracking-wider uppercase transition bg-white text-slate-700 hover:bg-brand-50 border border-slate-200" data-target="tab-study">
+            📊 Consumer Study (50 Users)
+          </button>
+        </div>
+
+        <!-- Tab Contents -->
+        <div class="bg-white rounded-3xl p-6 sm:p-10 border border-brand-200 shadow-xl min-h-[340px]">
+          
+          <!-- TAB 1: INCI -->
+          <div id="tab-inci" class="tab-pane block space-y-6">
+            <div class="flex items-center justify-between pb-4 border-b border-slate-200">
+              <h3 class="text-lg font-bold text-brand-900" data-i18n="tab1_title">Full Ingredient Deck (INCI Compliant)</h3>
+              <span class="text-xs bg-brand-100 text-brand-800 font-bold px-3 py-1 rounded-full">Target pH: 5.2 – 5.4</span>
+            </div>
+            
+            <p class="text-xs text-slate-600 leading-relaxed font-mono bg-slate-50 p-4 rounded-xl border border-slate-200">
+              Aqua (Demineralized Distilled Water), Azadirachta Indica (Neem Twig/Stick) Distillate (10.0%), Azadirachta Indica (Neem Seed) Distillate (4.0%), Aloe Barbadensis Leaf Juice (10.0%), Niacinamide (Vitamin B3) (4.0%), Propanediol (4.0%), Centella Asiatica (Cica) Leaf Extract (1.5%), Azadirachta Indica (Neem Leaf) Extract (1.0%), Salvia Hispanica (Chia) &amp; Linum Usitatissimum (Flaxseed) Extract (4.0%), Zinc PCA (0.5%), Sodium Hyaluronate (Multi-MW HA) (0.5%), Allantoin (0.5%), Phenoxyethanol &amp; Ethylhexylglycerin (1.0%), Sodium Gluconate (0.2%), Citric Acid (QS).
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
+              <div class="p-4 rounded-2xl bg-brand-50/60 border border-brand-100">
+                <span class="text-xs font-bold text-brand-800 block mb-1">Phase A (Hydrosol Vehicle)</span>
+                <p class="text-xs text-slate-600">Steam-distilled pure twig &amp; seed arks + Aloe &amp; seed mucilage replace flat water for active toning.</p>
+              </div>
+              <div class="p-4 rounded-2xl bg-brand-50/60 border border-brand-100">
+                <span class="text-xs font-bold text-brand-800 block mb-1">Phase B (Active Repair)</span>
+                <p class="text-xs text-slate-600">4% Niacinamide, Zinc PCA, Cica, and multi-molecular Hyaluronic acid repair lipid barriers.</p>
+              </div>
+              <div class="p-4 rounded-2xl bg-brand-50/60 border border-brand-100">
+                <span class="text-xs font-bold text-brand-800 block mb-1">Phase C (Clean Preservative)</span>
+                <p class="text-xs text-slate-600">Paraben-free Euxyl PE 9010 + Sodium Gluconate prevents discoloration and fungal growth.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB 2: WHY 4% VS 10% -->
+          <div id="tab-why4" class="tab-pane hidden space-y-6">
+            <div class="pb-4 border-b border-slate-200">
+              <h3 class="text-lg font-bold text-brand-900" data-i18n="tab2_title">The 4% Goldilocks Ratio: Stop Skin Barrier Damage</h3>
+              <p class="text-xs text-slate-500 mt-1">Why Indian skin reacts badly to generic 10% Niacinamide serums.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div class="p-5 rounded-2xl bg-rose-50 border border-rose-200 space-y-2">
+                <div class="flex items-center space-x-2 text-rose-700 font-bold text-sm">
+                  <i class="fa-solid fa-triangle-exclamation"></i>
+                  <span>The Ordinary 10% Problem</span>
+                </div>
+                <ul class="text-xs text-rose-900 space-y-2 list-disc pl-4">
+                  <li>Triggers <strong>histamine-induced skin flushing</strong> and contact redness.</li>
+                  <li>Causes <strong>"false purging"</strong> (micro-bumps) due to lipid barrier breakdown.</li>
+                  <li>Over-strips natural moisture when paired with aggressive Indian heat/sun.</li>
+                </ul>
+              </div>
+
+              <div class="p-5 rounded-2xl bg-emerald-50 border border-emerald-200 space-y-2">
+                <div class="flex items-center space-x-2 text-emerald-800 font-bold text-sm">
+                  <i class="fa-solid fa-circle-check"></i>
+                  <span>Neem Flowra 4% Approach</span>
+                </div>
+                <ul class="text-xs text-emerald-950 space-y-2 list-disc pl-4">
+                  <li><strong>Proven Optimal Efficacy:</strong> 4% achieves identical sebum control and PIH fading as 10% in clinical literature.</li>
+                  <li><strong>Zero Irritation:</strong> Buffered with soothing Centella (Cica), Allantoin &amp; Aloe.</li>
+                  <li><strong>True Barrier Friendly:</strong> Can be used twice daily safely without burning.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB 3: HOW TO USE -->
+          <div id="tab-usage" class="tab-pane hidden space-y-6">
+            <div class="pb-4 border-b border-slate-200">
+              <h3 class="text-lg font-bold text-brand-900" data-i18n="tab3_title">Recommended Application Protocol</h3>
+              <p class="text-xs text-slate-500 mt-1">Simple 3-step morning and night regimen for best results.</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div class="text-center p-5 rounded-2xl bg-slate-50 border border-slate-200">
+                <div class="w-12 h-12 mx-auto rounded-full bg-brand-100 text-brand-800 flex items-center justify-center font-bold text-lg mb-3">1</div>
+                <h4 class="font-bold text-sm text-slate-900 mb-1">Cleanse</h4>
+                <p class="text-xs text-slate-600">Wash face with a gentle, sulfate-free cleanser. Pat lightly, leaving skin slightly damp.</p>
+              </div>
+              <div class="text-center p-5 rounded-2xl bg-brand-50 border border-brand-200">
+                <div class="w-12 h-12 mx-auto rounded-full bg-brand-700 text-amber-300 flex items-center justify-center font-bold text-lg mb-3">2</div>
+                <h4 class="font-bold text-sm text-brand-900 mb-1">Apply 3-4 Drops</h4>
+                <p class="text-xs text-brand-800">Dispense onto palms or directly on cheeks. Gently press and pat until absorbed (takes 5-10 sec).</p>
+              </div>
+              <div class="text-center p-5 rounded-2xl bg-slate-50 border border-slate-200">
+                <div class="w-12 h-12 mx-auto rounded-full bg-brand-100 text-brand-800 flex items-center justify-center font-bold text-lg mb-3">3</div>
+                <h4 class="font-bold text-sm text-slate-900 mb-1">Lock &amp; Protect</h4>
+                <p class="text-xs text-slate-600">Follow with a light barrier moisturizer. In the morning, always finish with broad-spectrum SPF 50+.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB 4: CONSUMER STUDY -->
+          <div id="tab-study" class="tab-pane hidden space-y-6">
+            <div class="pb-4 border-b border-slate-200">
+              <h3 class="text-lg font-bold text-brand-900" data-i18n="tab4_title">Independent 14-Day Consumer Evaluation (50 Subjects)</h3>
+              <p class="text-xs text-slate-500 mt-1">Evaluation conducted across combination, oily, and breakout-prone Indian skin tones.</p>
+            </div>
+
+            <div class="space-y-4">
+              <div>
+                <div class="flex justify-between text-xs font-bold mb-1">
+                  <span>Noticed significant reduction in afternoon oily shine</span>
+                  <span class="text-brand-700">94%</span>
+                </div>
+                <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden">
+                  <div class="bg-brand-600 h-2.5 rounded-full" style="width: 94%"></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between text-xs font-bold mb-1">
+                  <span>Observed rapid calming of active cystic acne without irritation</span>
+                  <span class="text-brand-700">89%</span>
+                </div>
+                <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden">
+                  <div class="bg-brand-600 h-2.5 rounded-full" style="width: 89%"></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between text-xs font-bold mb-1">
+                  <span>Agreed formula absorbed in under 10 seconds with zero stickiness</span>
+                  <span class="text-brand-700">97%</span>
+                </div>
+                <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden">
+                  <div class="bg-brand-600 h-2.5 rounded-full" style="width: 97%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== INTERACTIVE SKIN QUIZ / ROUTINE MATCHER ==================== -->
+    <section id="routine" class="py-16 bg-gradient-to-tr from-brand-900 to-brand-800 text-white relative overflow-hidden">
+      <!-- Decorative background blur -->
+      <div class="absolute -right-20 -bottom-20 w-80 h-80 rounded-full bg-brand-600/30 blur-3xl pointer-events-none"></div>
+
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 relative z-10">
+        <div class="text-center max-w-xl mx-auto mb-10">
+          <span class="text-amber-300 text-xs font-bold tracking-widest uppercase mb-1 block" data-i18n="quiz_badge">SMART SKIN DIAGNOSTIC</span>
+          <h2 class="text-3xl font-serif font-bold" data-i18n="quiz_heading">Find Out If Tri-Neem Is Right For You</h2>
+          <p class="text-xs text-brand-200 mt-2" data-i18n="quiz_sub">Answer 2 quick questions to verify ingredient compatibility with your skin type.</p>
+        </div>
+
+        <div class="bg-white/10 backdrop-blur-md p-6 sm:p-8 rounded-3xl border border-white/20 shadow-2xl">
+          
+          <!-- Step 1: Skin Type -->
+          <div id="quiz-step-1" class="space-y-4">
+            <span class="text-xs font-bold text-amber-300 uppercase tracking-wider block">Step 1 of 2: Select Your Skin Type</span>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <button class="quiz-opt-btn p-4 rounded-2xl bg-white/10 hover:bg-white/20 border border-white/20 text-left transition" data-step="1" data-val="oily">
+                <span class="text-base block mb-1">🌊 Oily &amp; Acne-Prone</span>
+                <span class="text-[11px] text-brand-200">Excess grease, frequent pimples, clogged pores</span>
+              </button>
+              <button class="quiz-opt-btn p-4 rounded-2xl bg-white/10 hover:bg-white/20 border border-white/20 text-left transition" data-step="1" data-val="sensitive">
+                <span class="text-base block mb-1">🌸 Sensitive / Redness</span>
+                <span class="text-[11px] text-brand-200">Easily irritated, burns with heavy chemicals</span>
+              </button>
+              <button class="quiz-opt-btn p-4 rounded-2xl bg-white/10 hover:bg-white/20 border border-white/20 text-left transition" data-step="1" data-val="combo">
+                <span class="text-base block mb-1">⚖️ Combination</span>
+                <span class="text-[11px] text-brand-200">Oily T-zone (nose &amp; forehead) with normal cheeks</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Step 2: Primary Goal -->
+          <div id="quiz-step-2" class="space-y-4 hidden mt-6">
+            <span class="text-xs font-bold text-amber-300 uppercase tracking-wider block">Step 2 of 2: What is your primary concern?</span>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <button class="quiz-opt-btn p-4 rounded-2xl bg-white/10 hover:bg-white/20 border border-white/20 text-left transition" data-step="2" data-val="marks">
+                <span class="text-base block mb-1">🎯 Dark Spots &amp; Marks</span>
+                <span class="text-[11px] text-brand-200">Fading post-acne pigmentation</span>
+              </button>
+              <button class="quiz-opt-btn p-4 rounded-2xl bg-white/10 hover:bg-white/20 border border-white/20 text-left transition" data-step="2" data-val="pimples">
+                <span class="text-base block mb-1">⚡ Active Red Pimples</span>
+                <span class="text-[11px] text-brand-200">Bacteria &amp; inflammation control</span>
+              </button>
+              <button class="quiz-opt-btn p-4 rounded-2xl bg-white/10 hover:bg-white/20 border border-white/20 text-left transition" data-step="2" data-val="barrier">
+                <span class="text-base block mb-1">🛡️ Damaged Barrier</span>
+                <span class="text-[11px] text-brand-200">Skin feels dry yet oily simultaneously</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Quiz Result Box -->
+          <div id="quiz-result" class="hidden mt-6 p-6 rounded-2xl bg-brand-800 border border-amber-300/40 text-center space-y-3 animate-fade-in">
+            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-400/20 text-amber-300 text-xs font-bold">
+              <i class="fa-solid fa-circle-check"></i> 99.4% Match Verified
+            </div>
+            <h3 class="text-xl font-bold text-white">Neem Flowra Tri-Neem + 4% Niacinamide is Ideal for Your Routine</h3>
+            <p id="quiz-explanation" class="text-xs text-brand-100 max-w-xl mx-auto leading-relaxed">
+              Your skin profile will benefit significantly from steam-distilled neem seed terpenes and 4% Niacinamide to restore the lipid barrier without provoking contact dermatitis.
+            </p>
+            <div class="pt-2">
+              <a href="#product" class="inline-flex items-center px-6 py-2.5 rounded-full bg-amber-300 text-brand-950 font-bold text-xs uppercase tracking-wider hover:bg-amber-200 transition">
+                Order Match Formula @ ₹399
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== VERIFIED CUSTOMER REVIEWS ==================== -->
+    <section id="reviews" class="py-16 bg-white">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6">
+        
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-10 pb-6 border-b border-slate-200 gap-4">
+          <div>
+            <span class="text-brand-600 text-xs font-bold tracking-widest uppercase mb-1 block">REAL FEEDBACK</span>
+            <h2 class="text-3xl font-serif font-bold text-brand-900">Verified Customer Experiences</h2>
+          </div>
+          <div class="flex items-center space-x-4">
+            <div class="text-right">
+              <span class="text-2xl font-black text-brand-900 block leading-tight">4.9 / 5</span>
+              <span class="text-[11px] text-slate-500">Based on 1,428 reviews</span>
+            </div>
+            <button id="write-review-btn" class="px-4 py-2 bg-brand-50 hover:bg-brand-100 text-brand-800 rounded-xl text-xs font-bold border border-brand-200 transition">
+              <i class="fa-solid fa-pen-to-square mr-1"></i> Write a Review
+            </button>
+          </div>
+        </div>
+
+        <!-- Reviews Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          
+          <!-- Review 1 -->
+          <div class="p-6 rounded-3xl bg-slate-50 border border-slate-200 space-y-3">
+            <div class="flex items-center justify-between">
+              <div class="flex text-amber-400 text-xs">
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+              </div>
+              <span class="text-[10px] text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded font-bold border border-emerald-200">
+                <i class="fa-solid fa-badge-check"></i> Verified Buyer
+              </span>
+            </div>
+            <h4 class="font-bold text-sm text-slate-900">"Finally a Niacinamide that didn't break me out!"</h4>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              I used The Ordinary 10% earlier and had terrible red rashes. This 4% Neem Flowra formula is like cooling magic. The light green ark texture absorbs in 5 seconds without any sticky residue under my sunscreen.
+            </p>
+            <div class="pt-2 flex items-center justify-between text-xs text-slate-500 border-t border-slate-200/60">
+              <span class="font-bold text-slate-700">Pooja Sharma (Jaipur)</span>
+              <span>3 days ago</span>
+            </div>
+          </div>
+
+          <!-- Review 2 -->
+          <div class="p-6 rounded-3xl bg-slate-50 border border-slate-200 space-y-3">
+            <div class="flex items-center justify-between">
+              <div class="flex text-amber-400 text-xs">
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+              </div>
+              <span class="text-[10px] text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded font-bold border border-emerald-200">
+                <i class="fa-solid fa-badge-check"></i> Verified Buyer
+              </span>
+            </div>
+            <h4 class="font-bold text-sm text-slate-900">"Perfect for Delhi humidity and pollution"</h4>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Most Ayurvedic serums smell like heavy cooking oil. But this one uses steam-distilled arks—it is completely water-clear and feels so refreshing. My cystic forehead bumps reduced within 8 days.
+            </p>
+            <div class="pt-2 flex items-center justify-between text-xs text-slate-500 border-t border-slate-200/60">
+              <span class="font-bold text-slate-700">Rohit Verma (Noida)</span>
+              <span>1 week ago</span>
+            </div>
+          </div>
+
+          <!-- Review 3 -->
+          <div class="p-6 rounded-3xl bg-slate-50 border border-slate-200 space-y-3">
+            <div class="flex items-center justify-between">
+              <div class="flex text-amber-400 text-xs">
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+              </div>
+              <span class="text-[10px] text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded font-bold border border-emerald-200">
+                <i class="fa-solid fa-badge-check"></i> Verified Buyer
+              </span>
+            </div>
+            <h4 class="font-bold text-sm text-slate-900">"Dark spots started fading by 2nd week"</h4>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Love the Cica and Zinc PCA pairing. It stops new pimples from popping up while fading older red-brown marks. The amber bottle and green dropper cap look extremely luxurious on my dressing table!
+            </p>
+            <div class="pt-2 flex items-center justify-between text-xs text-slate-500 border-t border-slate-200/60">
+              <span class="font-bold text-slate-700">Ananya Deshmukh (Pune)</span>
+              <span>2 weeks ago</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================== STATUTORY & LEGAL FOOTER (COSMETICS RULES 2020) ==================== -->
+    <footer class="bg-brand-950 text-slate-300 pt-16 pb-12 border-t border-brand-900 text-xs">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-10 pb-12 border-b border-brand-900">
+          
+          <!-- Col 1: Brand Info -->
+          <div class="space-y-3 md:col-span-1">
+            <div class="flex items-center space-x-2">
+              <div class="w-8 h-8 rounded-full bg-brand-700 flex items-center justify-center text-amber-300">
+                <i class="fa-solid fa-spa"></i>
+              </div>
+              <span class="font-serif text-lg font-bold text-white tracking-wider">NEEM FLOWRA</span>
+            </div>
+            <p class="text-slate-400 text-xs leading-relaxed">
+              Dedicated to clinical botanical skincare formulated with pure steam distillates (arks) for melanin-rich Indian skin barriers.
+            </p>
+            <div class="flex space-x-3 text-slate-400 text-sm pt-1">
+              <a href="#" class="hover:text-amber-300"><i class="fa-brands fa-instagram"></i></a>
+              <a href="#" class="hover:text-amber-300"><i class="fa-brands fa-youtube"></i></a>
+              <a href="#" class="hover:text-amber-300"><i class="fa-brands fa-whatsapp"></i></a>
+            </div>
+          </div>
+
+          <!-- Col 2: Regulatory & Statutory Disclosures -->
+          <div class="space-y-2 md:col-span-1">
+            <h4 class="text-amber-300 font-bold uppercase tracking-wider text-xs">Statutory Declarations</h4>
+            <ul class="text-slate-400 space-y-1.5 text-[11px]">
+              <li><strong>Net Quantity:</strong> 30 ml (1.01 fl. oz.)</li>
+              <li><strong>Mfg. Lic. No.:</strong> M-COS/UP/2026</li>
+              <li><strong>Batch No.:</strong> NF-001</li>
+              <li><strong>Shelf Life:</strong> 24 Months from Mfd.</li>
+              <li><strong>Target pH:</strong> 5.2 – 5.4</li>
+              <li><strong>Country of Origin:</strong> India</li>
+            </ul>
+          </div>
+
+          <!-- Col 3: Manufacturer & Contact -->
+          <div class="space-y-2 md:col-span-1">
+            <h4 class="text-amber-300 font-bold uppercase tracking-wider text-xs">Manufactured &amp; Marketed By</h4>
+            <p class="text-slate-400 text-[11px] leading-relaxed">
+              <strong>Neem Flowra Botanical Science Pvt. Ltd.</strong><br>
+              Plot No. 42, Ecotech Industrial Area,<br>
+              Greater Noida, UP - 201306, India.
+            </p>
+            <div class="pt-1 text-[11px] text-slate-300 space-y-1">
+              <div><i class="fa-solid fa-envelope mr-1 text-brand-400"></i> care@neemflowra.com</div>
+              <div><i class="fa-solid fa-phone mr-1 text-brand-400"></i> +91 94490 27209 (Mon-Sat 10AM-6PM)</div>
+            </div>
+          </div>
+
+          <!-- Col 4: Safety & Medical Disclaimer -->
+          <div class="space-y-2 md:col-span-1">
+            <h4 class="text-amber-300 font-bold uppercase tracking-wider text-xs">Safety &amp; Compliance</h4>
+            <p class="text-slate-400 text-[11px] leading-relaxed">
+              <strong>Caution:</strong> For external cosmetic use only. Perform a patch test 24 hours prior to regular application. Store below 30°C in a cool, dark place away from direct sunlight.
+            </p>
+            <div class="flex items-center gap-2 pt-2">
+              <span class="bg-brand-900 border border-brand-800 px-2 py-1 rounded text-[10px] text-slate-300">Cruelty Free</span>
+              <span class="bg-brand-900 border border-brand-800 px-2 py-1 rounded text-[10px] text-slate-300">Ecocert Preserved</span>
+              <span class="bg-brand-900 border border-brand-800 px-2 py-1 rounded text-[10px] text-slate-300">Recyclable Glass</span>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-[11px] text-slate-500 gap-4">
+          <p>© 2026 Neem Flowra Pvt Ltd. All rights reserved.</p>
+          <div class="flex space-x-6">
+            <a href="#" class="hover:underline">Privacy Policy</a>
+            <a href="#" class="hover:underline">Terms of Service</a>
+            <a href="#" class="hover:underline">Shipping &amp; Return Policy</a>
+          </div>
+        </div>
+
+      </div>
+    </footer>
+
+  </div><!-- END #site-container -->
+
+
+  <!-- ==================== MOBILE STICKY BUY BAR ==================== -->
+  <div class="sm:hidden fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-slate-200 p-3 z-40 flex items-center justify-between shadow-2xl">
+    <div>
+      <div class="flex items-baseline space-x-1.5">
+        <span class="text-lg font-black text-brand-900">₹399</span>
+        <span class="text-xs text-slate-400 line-through">₹549</span>
+      </div>
+      <span class="text-[10px] font-bold text-emerald-700 flex items-center gap-1">
+        <i class="fa-solid fa-bolt text-amber-500"></i> Free Express Shipping
+      </span>
+    </div>
+    <a href="#product" class="px-6 py-2.5 bg-brand-800 hover:bg-brand-900 text-amber-300 font-bold text-xs rounded-full uppercase tracking-wider shadow-md">
+      ORDER NOW
+    </a>
+  </div>
+
+
+  <!-- ==================== SLIDE-OVER CART DRAWER ==================== -->
+  <div id="cart-drawer-overlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 opacity-0 pointer-events-none transition-opacity duration-300"></div>
+
+  <div id="cart-drawer" class="fixed top-0 right-0 bottom-0 w-full max-w-md bg-white z-50 shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col">
+    <!-- Cart Header -->
+    <div class="p-5 border-b border-slate-200 flex items-center justify-between bg-brand-50/50">
+      <div class="flex items-center space-x-2">
+        <i class="fa-solid fa-bag-shopping text-brand-800"></i>
+        <h3 class="font-bold text-brand-900 text-sm" data-i18n="cart_drawer_title">Your Shopping Bag (1 Item)</h3>
+      </div>
+      <button id="cart-close-btn" class="p-2 text-slate-500 hover:text-slate-900 rounded-full hover:bg-slate-100 transition">
+        <i class="fa-solid fa-xmark text-lg"></i>
+      </button>
+    </div>
+
+    <!-- Free Shipping Bar -->
+    <div class="p-3 bg-emerald-50 border-b border-emerald-100 text-center text-xs text-emerald-800 font-medium">
+      🎉 You qualify for <strong>FREE Express Courier Shipping!</strong>
+    </div>
+
+    <!-- Cart Items Scroll -->
+    <div class="flex-1 overflow-y-auto p-5 space-y-4">
+      <div class="flex gap-4 p-3 bg-slate-50 rounded-2xl border border-slate-200">
+        <div class="w-16 h-20 bg-brand-100/60 rounded-xl flex items-center justify-center p-2 flex-shrink-0">
+          <i class="fa-solid fa-bottle-droplet text-brand-700 text-2xl"></i>
+        </div>
+        <div class="flex-1">
+          <div class="flex justify-between items-start">
+            <h4 class="font-bold text-xs text-brand-900">Neem Flowra Tri-Neem Serum</h4>
+            <span class="font-extrabold text-xs text-brand-900">₹399</span>
+          </div>
+          <span class="text-[10px] text-slate-500 block mt-0.5">30 ml • Green Cap Amber Glass</span>
+          
+          <div class="flex items-center justify-between mt-3">
+            <div class="flex items-center border border-slate-300 rounded-lg overflow-hidden bg-white text-xs">
+              <button class="cart-qty-btn px-2.5 py-1 text-slate-600 hover:bg-slate-100">-</button>
+              <span class="px-2 font-bold text-slate-800">1</span>
+              <button class="cart-qty-btn px-2.5 py-1 text-slate-600 hover:bg-slate-100">+</button>
+            </div>
+            <button class="text-[11px] text-rose-600 hover:underline">Remove</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Promo Code Box -->
+      <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+        <div class="flex gap-2">
+          <input id="coupon-input" type="text" placeholder="Promo Code (Try: LAUNCH10)" class="w-full px-3 py-1.5 text-xs rounded-lg border border-slate-300 uppercase focus:outline-none">
+          <button id="apply-coupon-btn" class="px-3 py-1.5 bg-brand-800 text-white rounded-lg text-xs font-bold hover:bg-brand-900 transition">APPLY</button>
+        </div>
+        <div id="coupon-msg" class="text-[10px] mt-1.5"></div>
+      </div>
+    </div>
+
+    <!-- Cart Footer & Checkout -->
+    <div class="p-5 border-t border-slate-200 bg-white space-y-3">
+      <div class="space-y-1.5 text-xs text-slate-600">
+        <div class="flex justify-between">
+          <span>Subtotal</span>
+          <span class="font-bold text-slate-900">₹399</span>
+        </div>
+        <div class="flex justify-between">
+          <span>Shipping (Express India)</span>
+          <span class="text-emerald-700 font-bold">FREE</span>
+        </div>
+        <div class="flex justify-between text-sm font-extrabold text-brand-900 pt-1 border-t border-slate-200">
+          <span>Total To Pay</span>
+          <span id="cart-total-display">₹399</span>
+        </div>
+      </div>
+
+      <button id="open-checkout-modal-btn" class="w-full py-3.5 bg-brand-800 hover:bg-brand-900 text-amber-300 font-bold text-xs uppercase tracking-wider rounded-xl transition shadow-lg flex items-center justify-center gap-2">
+        <span>PROCEED TO EXPRESS CHECKOUT</span>
+        <i class="fa-solid fa-lock text-[10px]"></i>
+      </button>
+    </div>
+  </div>
+
+
+  <!-- ==================== INTERACTIVE CHECKOUT MODAL ==================== -->
+  <div id="checkout-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white w-full max-w-lg rounded-3xl overflow-hidden shadow-2xl border border-slate-200 max-h-[90vh] flex flex-col">
+      <!-- Modal Header -->
+      <div class="p-4 bg-brand-900 text-white flex items-center justify-between">
+        <div class="flex items-center space-x-2">
+          <i class="fa-solid fa-lock text-amber-300"></i>
+          <span class="font-bold text-sm">Secure Express Checkout</span>
+        </div>
+        <button id="close-checkout-btn" class="text-slate-300 hover:text-white p-1">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <!-- Modal Body Form -->
+      <div class="p-6 overflow-y-auto space-y-4 text-xs">
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Shipping Details</label>
+          <div class="grid grid-cols-2 gap-2">
+            <input type="text" placeholder="Full Name" class="p-2.5 rounded-xl border border-slate-300 w-full" value="Priya Sharma">
+            <input type="tel" placeholder="Mobile Number" class="p-2.5 rounded-xl border border-slate-300 w-full" value="+91 98765 43210">
+          </div>
+          <input type="text" placeholder="Flat, Street, Area Address" class="p-2.5 rounded-xl border border-slate-300 w-full mt-2" value="Flat 402, Green Avenue, Sector 62">
+          <div class="grid grid-cols-2 gap-2 mt-2">
+            <input type="text" placeholder="City" class="p-2.5 rounded-xl border border-slate-300 w-full" value="Noida">
+            <input type="text" placeholder="Pincode" class="p-2.5 rounded-xl border border-slate-300 w-full" value="201301">
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Choose Payment Method</label>
+          <div class="space-y-2">
+            <label class="flex items-center justify-between p-3 rounded-xl border-2 border-brand-600 bg-brand-50/50 cursor-pointer">
+              <div class="flex items-center space-x-2">
+                <input type="radio" name="paymethod" checked class="text-brand-700">
+                <span class="font-bold text-brand-900">Instant UPI (GPay / PhonePe / Paytm)</span>
+              </div>
+              <span class="text-[10px] font-bold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded">FASTEST</span>
+            </label>
+            <label class="flex items-center justify-between p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer">
+              <div class="flex items-center space-x-2">
+                <input type="radio" name="paymethod" class="text-brand-700">
+                <span class="font-medium text-slate-800">Cash on Delivery (COD)</span>
+              </div>
+              <span class="text-[10px] text-slate-500">Verified Mobile</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Simulated Order Confirmation -->
+        <button id="confirm-payment-btn" class="w-full py-4 bg-brand-800 hover:bg-brand-900 text-amber-300 font-bold text-sm rounded-2xl shadow-lg transition flex items-center justify-center gap-2">
+          <span>COMPLETE ORDER &amp; PAY ₹399</span>
+          <i class="fa-solid fa-arrow-right"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ==================== HIGH-RES IMAGE ZOOM MODAL ==================== -->
+  <div id="image-zoom-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+    <div class="relative bg-white rounded-3xl p-6 sm:p-10 max-w-2xl w-full border border-brand-200 shadow-2xl flex flex-col items-center">
+      <button id="close-zoom-modal-btn" class="absolute top-4 right-4 text-slate-500 hover:text-slate-900 p-2 rounded-full hover:bg-slate-100 transition">
+        <i class="fa-solid fa-xmark text-xl"></i>
+      </button>
+
+      <span class="text-xs font-bold text-brand-700 uppercase tracking-widest mb-2">High Resolution Texture &amp; Label Inspector</span>
+      <h3 class="text-lg font-serif font-bold text-brand-900 mb-4">Neem Flowra 30 ml Amber Glass &amp; Matte Neem Green Cap</h3>
+
+      <div class="w-full max-h-[60vh] overflow-hidden flex items-center justify-center bg-brand-50/50 rounded-2xl p-4 border border-brand-100">
+        <!-- Enlarged Clone of SVG with high detail inspection -->
+        <svg viewBox="0 0 400 520" class="w-72 sm:w-96 drop-shadow-2xl scale-125 my-8">
+          <use href="#hero-bottle-svg"></use>
+        </svg>
+      </div>
+
+      <div class="mt-4 text-center text-xs text-slate-500">
+        Features: Non-reactive amber glass, airtight dropper bulb, tamper-evident neck seal, and bilingual statutory INCI deck.
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ==================== JAVASCRIPT LOGIC ==================== -->
+  <script>
+    /* ================= TRANSLATION DICTIONARY ================= */
+    const translations = {
+      en: {
+        badge_launch: "LAUNCH SPECIAL",
+        top_bar_announcement: "🌿 India's 1st Steam-Distilled Tri-Neem Ark + 4% Niacinamide Serum | <strong>Flat 27% OFF Today | Neem Flowra</strong>",
+        zoom_label: "Zoom:",
+        zoom_reset: "Reset",
+        nav_product: "The Serum",
+        nav_formula: "Science & Formula",
+        nav_results: "Before & After",
+        nav_quiz: "Skin Matcher",
+        nav_reviews: "Reviews (1,420+)",
+        btn_order_now: "ORDER NOW ₹399",
+        hero_verified_badge: "AYUSH GMP & CDSCO Compliant",
+        badge_goldilocks: "4% Goldilocks Ratio",
+        click_to_zoom: "Click to examine 30ml bottle & label",
+        feat_derma: "Dermat Tested",
+        feat_vegan: "100% Vegan",
+        feat_no_frag: "Zero Fragrance",
+        feat_purging: "No Purging",
+        dispatch_guarantee: "<strong>Dispatches within 24 Hours</strong> from Greater Noida Hub",
+        verified_reviews_count: "Verified Indian Reviews",
+        product_tagline: "Barrier Clarifying Face Serum (100% Steam-Distilled Whole Neem Arks)",
+        hero_description: "Formulated specifically for Indian skin in humid & polluted climates. Neem Flowra combines clear steam distillates of Neem seed, twig & leaf with the clinical 4% Niacinamide Goldilocks ratio, Zinc PCA, and Cica. Eliminates acne-causing bacteria and fades stubborn dark spots without peeling or purging.",
+        inclusive_taxes: "(Incl. of all taxes)",
+        batch_alert: "Fresh Batch NF-001 In Stock",
+        limited_bottles: "Only 38 bottles left for today's dispatch!",
+        quantity_label: "Quantity:",
+        bottle_size_note: "30 ml (approx. 45 days daily AM/PM usage)",
+        btn_add_to_cart: "ADD TO CART",
+        btn_express_checkout: "BUY NOW (EXPRESS UPI)",
+        delivery_checker_label: "Check Delivery & COD Availability:",
+        btn_check: "CHECK",
+        actives_breakdown_title: "The 5 Core Active Pillars:",
+        ing_neem_title: "Steam-Distilled Whole Neem",
+        ing_neem_desc: "Twig + Seed distillates kill acne bacteria without oily smell.",
+        ing_nia_title: "4% Niacinamide (Goldilocks)",
+        ing_nia_desc: "Regulates sebum & fades marks without burning or redness.",
+        ing_cica_title: "1.5% Pure Cica (Centella)",
+        ing_cica_desc: "Rapidly extinguishes cystic redness & speeds healing.",
+        ing_zinc_title: "0.5% Zinc PCA & Hyaluronic",
+        ing_zinc_desc: "Controls all-day grease while locking in weightless hydration.",
+        clinical_proof_tag: "CLINICAL OBSERVATION (14 DAYS)",
+        ba_heading: "Real Visible Skin Recovery",
+        ba_subheading: "Drag the slider to see how Neem Flowra's combination of Neem steam distillate and 4% Niacinamide calmed active redness and balanced excessive sebum in two weeks.",
+        slider_instruction: "Slide Left / Right to Compare",
+        formula_tab_badge: "TRANSPARENT AYUR-SCIENCE",
+        formula_section_title: "Nothing to Hide: Complete Formulation Breakdown",
+        formula_section_subtitle: "Explore the precise botanical science, INCI compliance, and why 4% Niacinamide beats the common 10% overdose.",
+        tab1_title: "Full Ingredient Deck (INCI Compliant)",
+        tab2_title: "The 4% Goldilocks Ratio: Stop Skin Barrier Damage",
+        tab3_title: "Recommended Application Protocol",
+        tab4_title: "Independent 14-Day Consumer Evaluation (50 Subjects)",
+        quiz_badge: "SMART SKIN DIAGNOSTIC",
+        quiz_heading: "Find Out If Neem Flowra Is Right For You",
+        quiz_sub: "Answer 2 quick questions to verify ingredient compatibility with your skin type.",
+        cart_drawer_title: "Your Shopping Bag (1 Item)"
+      },
+      hi: {
+        badge_launch: "लॉन्च विशेष ऑफर",
+        top_bar_announcement: "🌿 भारत का पहला स्टीम-डिस्टिल्ड ट्राय-नीम अर्क + 4% नियासिनामाइड सीरम | <strong>आज ही पाएं 27% की छूट | नीम फ्लोरा</strong>",
+        zoom_label: "ज़ूम:",
+        zoom_reset: "रीसेट",
+        nav_product: "सीरम",
+        nav_formula: "विज्ञान और फॉर्मूला",
+        nav_results: "पहले और बाद का असर",
+        nav_quiz: "त्वचा जांचें",
+        nav_reviews: "समीक्षाएं (1,420+)",
+        btn_order_now: "ऑर्डर करें ₹399",
+        hero_verified_badge: "आयुष जीएमपी और सीडीएससीओ प्रमाणित",
+        badge_goldilocks: "4% गोल्डिलॉक्स संतुलित अनुपात",
+        click_to_zoom: "30ml बोतल और लेबल को बड़ा करके देखें",
+        feat_derma: "त्वचा विशेषज्ञ परीक्षित",
+        feat_vegan: "100% शाकाहारी",
+        feat_no_frag: "शून्य कृत्रिम सुगंध",
+        feat_purging: "शून्य जलन / रेडनेस",
+        dispatch_guarantee: "<strong>24 घंटे के भीतर डिस्पैच</strong> ग्रेटर नोएडा हब से",
+        verified_reviews_count: "सत्यापित भारतीय समीक्षाएं",
+        product_tagline: "बैरियर क्लेरिफाइंग फेस सीरम (100% भाप-आसवित सम्पूर्ण नीम अर्क)",
+        hero_description: "भारतीय मौसम, उमस और प्रदूषण को ध्यान में रखकर विशेष रूप से निर्मित। नीम फ्लोरा में नीम के बीज, टहनी और पत्ती का स्पष्ट भाप-आसवित अर्क, 4% नियासिनामाइड, जिंक पीसीए और सिका शामिल हैं। बिना किसी जलन या छिलने के मुँहासे के बैक्टीरिया को खत्म करता है और काले दाग हल्के करता है।",
+        inclusive_taxes: "(सभी कर सहित)",
+        batch_alert: "ताज़ा बैच NF-001 स्टॉक में उपलब्ध",
+        limited_bottles: "आज के प्रेषण के लिए केवल 38 बोतलें शेष!",
+        quantity_label: "मात्रा (Quantity):",
+        bottle_size_note: "30 मिली (लगभग 45 दिनों का दैनिक सुबह/शाम उपयोग)",
+        btn_add_to_cart: "कार्ट में जोड़ें",
+        btn_express_checkout: "अभी खरीदें (फास्ट UPI)",
+        delivery_checker_label: "डिलीवरी और सीओडी उपलब्धता जांचें:",
+        btn_check: "जांचें",
+        actives_breakdown_title: "5 मुख्य सक्रिय वैज्ञानिक तत्व:",
+        ing_neem_title: "भाप-आसवित सम्पूर्ण नीम अर्क",
+        ing_neem_desc: "टहनी और बीज का अर्क बिना चिपचिपाहट या बदबू के एक्ने बैक्टीरिया मिटाता है।",
+        ing_nia_title: "4% नियासिनामाइड (गोल्डिलॉक्स)",
+        ing_nia_desc: "बिना जलन के सीबम नियंत्रित करता है और काले दाग हल्के करता है।",
+        ing_cica_title: "1.5% शुद्ध सिका (सेंटेला)",
+        ing_cica_desc: "लाल दाने और सूजन को तुरंत शांत कर स्किन बैरियर सुधारता है।",
+        ing_zinc_title: "0.5% जिंक पीसीए और हयालूरोनिक",
+        ing_zinc_desc: "दिनभर चेहरे का तेल सोखकर हल्की, गैर-चिपचिपी नमी देता है।",
+        clinical_proof_tag: "14 दिनों का क्लिनिकल अध्ययन",
+        ba_heading: "त्वचा में वास्तविक और स्पष्ट सुधार",
+        ba_subheading: "स्लाइडर को खींचकर देखें कि कैसे नीम फ्लोरा के नीम अर्क और 4% नियासिनामाइड ने दो हफ्तों में त्वचा की लालिमा को शांत कर अतिरिक्त तेल संतुलित किया।",
+        slider_instruction: "तुलना करने के लिए बाएं / दाएं खिसकाएं",
+        formula_tab_badge: "पारदर्शी आयुर्वेद और विज्ञान",
+        formula_section_title: "कुछ भी छिपा नहीं: पूर्ण फॉर्मूलेशन विवरण",
+        formula_section_subtitle: "सटीक वनस्पति विज्ञान, INCI अनुपालन और 10% नियासिनामाइड के दुष्प्रभावों से बचाव की पूरी जानकारी।",
+        tab1_title: "पूर्ण घटक सूची (INCI अनुपालित)",
+        tab2_title: "4% अनुपात क्यों: स्किन बैरियर को नुकसान से बचाएं",
+        tab3_title: "उपयोग करने का सही तरीका (सुबह / रात)",
+        tab4_title: "स्वतंत्र 14-दिवसीय उपभोक्ता अध्ययन (50 लोग)",
+        quiz_badge: "त्वचा निदान प्रश्नोत्तरी",
+        quiz_heading: "जानें क्या नीम फ्लोरा आपकी त्वचा के लिए सही है?",
+        quiz_sub: "अपनी त्वचा के अनुसार अनुकूलता जांचने के लिए 2 सरल प्रश्नों के उत्तर दें।",
+        cart_drawer_title: "आपका शॉपिंग बैग (1 उत्पाद)"
+      }
+    };
+
+    /* Language Switcher Logic */
+    const langSelect = document.getElementById('lang-select');
+    langSelect.addEventListener('change', (e) => {
+      const selectedLang = e.target.value;
+      const dict = translations[selectedLang] || translations.en;
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (dict[key]) {
+          el.innerHTML = dict[key];
+        }
+      });
+      if (selectedLang === 'hi') {
+        document.body.classList.add('font-hindi');
+      } else {
+        document.body.classList.remove('font-hindi');
+      }
+    });
+
+    /* ================= ACCESSIBILITY: ZOOM IN / ZOOM OUT / RESET ================= */
+    let currentScale = 1.0;
+    const siteContainer = document.getElementById('site-container');
+    const zoomDisplay = document.getElementById('zoom-display');
+
+    function updateZoom(newScale) {
+      currentScale = Math.min(Math.max(newScale, 0.8), 1.3);
+      siteContainer.style.transform = `scale(${currentScale})`;
+      zoomDisplay.textContent = `${Math.round(currentScale * 100)}%`;
+      if (currentScale > 1) {
+        siteContainer.style.width = `${100 / currentScale}%`;
+      } else {
+        siteContainer.style.width = '100%';
+      }
+    }
+
+    document.getElementById('zoom-in-btn').addEventListener('click', () => updateZoom(currentScale + 0.1));
+    document.getElementById('zoom-out-btn').addEventListener('click', () => updateZoom(currentScale - 0.1));
+    document.getElementById('zoom-reset-btn').addEventListener('click', () => updateZoom(1.0));
+
+    /* ================= BEFORE & AFTER INTERACTIVE SLIDER ================= */
+    const sliderContainer = document.getElementById('comparison-slider-wrapper');
+    const topLayer = document.getElementById('comparison-top-layer');
+    const handle = document.getElementById('comparison-handle');
+    let isSliding = false;
+
+    function moveSlider(clientX) {
+      const rect = sliderContainer.getBoundingClientRect();
+      let x = clientX - rect.left;
+      x = Math.max(0, Math.min(x, rect.width));
+      const percent = (x / rect.width) * 100;
+      topLayer.style.width = `${percent}%`;
+      handle.style.left = `${percent}%`;
+    }
+
+    sliderContainer.addEventListener('mousedown', (e) => {
+      isSliding = true;
+      moveSlider(e.clientX);
+    });
+    window.addEventListener('mouseup', () => { isSliding = false; });
+    window.addEventListener('mousemove', (e) => {
+      if (!isSliding) return;
+      moveSlider(e.clientX);
+    });
+
+    // Touch support for mobile
+    sliderContainer.addEventListener('touchstart', (e) => {
+      isSliding = true;
+      moveSlider(e.touches[0].clientX);
+    });
+    window.addEventListener('touchend', () => { isSliding = false; });
+    window.addEventListener('touchmove', (e) => {
+      if (!isSliding) return;
+      moveSlider(e.touches[0].clientX);
+    });
+
+    /* ================= TABS SWITCHING ================= */
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const tabPanes = document.querySelectorAll('.tab-pane');
+
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        tabBtns.forEach(b => {
+          b.classList.remove('active', 'bg-brand-800', 'text-white', 'shadow-md');
+          b.classList.add('bg-white', 'text-slate-700');
+        });
+        btn.classList.add('active', 'bg-brand-800', 'text-white', 'shadow-md');
+        btn.classList.remove('bg-white', 'text-slate-700');
+
+        const targetId = btn.getAttribute('data-target');
+        tabPanes.forEach(pane => {
+          if (pane.id === targetId) {
+            pane.classList.remove('hidden');
+            pane.classList.add('block');
+          } else {
+            pane.classList.remove('block');
+            pane.classList.add('hidden');
+          }
+        });
+      });
+    });
+
+    /* ================= INTERACTIVE SKIN QUIZ ================= */
+    let quizAnswers = {};
+    document.querySelectorAll('.quiz-opt-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const step = btn.getAttribute('data-step');
+        const val = btn.getAttribute('data-val');
+        quizAnswers[step] = val;
+
+        if (step === "1") {
+          document.getElementById('quiz-step-2').classList.remove('hidden');
+          document.getElementById('quiz-step-2').scrollIntoView({ behavior: 'smooth' });
+        } else if (step === "2") {
+          document.getElementById('quiz-result').classList.remove('hidden');
+          const explEl = document.getElementById('quiz-explanation');
+          if (quizAnswers["1"] === "oily") {
+            explEl.textContent = "Your excess sebum production will be balanced by 0.5% Zinc PCA and steam-distilled twig ark, eliminating active C. acnes without sticky buildup.";
+          } else if (quizAnswers["1"] === "sensitive") {
+            explEl.textContent = "The 4% Niacinamide buffered with Centella (Cica) and Allantoin repairs compromised barrier lipids with zero burning or itching.";
+          } else {
+            explEl.textContent = "The dual-action formula clarifies congested T-zone pores while multi-molecular Hyaluronic Acid locks in weightless hydration for normal areas.";
+          }
+        }
+      });
+    });
+
+    /* ================= QUANTITY & PINCODE CHECKER ================= */
+    let qty = 1;
+    const qtyCount = document.getElementById('qty-count');
+    document.getElementById('qty-plus').addEventListener('click', () => {
+      qty++;
+      qtyCount.textContent = qty;
+    });
+    document.getElementById('qty-minus').addEventListener('click', () => {
+      if (qty > 1) qty--;
+      qtyCount.textContent = qty;
+    });
+
+    const pincodeInput = document.getElementById('pincode-input');
+    const pincodeBtn = document.getElementById('pincode-check-btn');
+    const pincodeResult = document.getElementById('pincode-result');
+
+    pincodeBtn.addEventListener('click', () => {
+      const pin = pincodeInput.value.trim();
+      if (/^\d{6}$/.test(pin)) {
+        pincodeResult.innerHTML = `
+          <span class="text-emerald-700 font-bold flex items-center gap-1">
+            <i class="fa-solid fa-circle-check"></i> Standard Delivery to ${pin} by <strong>Wednesday (Free Express Shipping)</strong>. Cash on Delivery is AVAILABLE.
+          </span>
+        `;
+      } else {
+        pincodeResult.innerHTML = `<span class="text-rose-600 font-semibold">Please enter a valid 6-digit Indian PIN code.</span>`;
+      }
+    });
+
+    /* ================= CART DRAWER & CHECKOUT ================= */
+    const cartToggle = document.getElementById('cart-drawer-toggle');
+    const cartDrawer = document.getElementById('cart-drawer');
+    const cartOverlay = document.getElementById('cart-drawer-overlay');
+    const cartClose = document.getElementById('cart-close-btn');
+
+    function openCart() {
+      cartDrawer.classList.remove('translate-x-full');
+      cartOverlay.classList.remove('opacity-0', 'pointer-events-none');
+    }
+    function closeCart() {
+      cartDrawer.classList.add('translate-x-full');
+      cartOverlay.classList.add('opacity-0', 'pointer-events-none');
+    }
+
+    cartToggle.addEventListener('click', openCart);
+    cartClose.addEventListener('click', closeCart);
+    cartOverlay.addEventListener('click', closeCart);
+
+    document.getElementById('add-to-cart-btn').addEventListener('click', () => {
+      openCart();
+    });
+
+    /* Promo Code */
+    document.getElementById('apply-coupon-btn').addEventListener('click', () => {
+      const code = document.getElementById('coupon-input').value.trim().toUpperCase();
+      const msg = document.getElementById('coupon-msg');
+      if (code === 'LAUNCH10') {
+        msg.className = "text-[10px] text-emerald-700 font-bold mt-1.5";
+        msg.textContent = "Coupon LAUNCH10 Applied: Extra ₹40 OFF!";
+        document.getElementById('cart-total-display').textContent = "₹359";
+      } else {
+        msg.className = "text-[10px] text-rose-600 font-semibold mt-1.5";
+        msg.textContent = "Invalid code. Use LAUNCH10 for ₹40 off.";
+      }
+    });
+
+    /* Checkout Modal */
+    const checkoutModal = document.getElementById('checkout-modal');
+    document.getElementById('open-checkout-modal-btn').addEventListener('click', () => {
+      closeCart();
+      checkoutModal.classList.remove('hidden');
+    });
+    document.getElementById('buy-now-btn').addEventListener('click', () => {
+      checkoutModal.classList.remove('hidden');
+    });
+    document.getElementById('close-checkout-btn').addEventListener('click', () => {
+      checkoutModal.classList.add('hidden');
+    });
+
+    document.getElementById('confirm-payment-btn').addEventListener('click', () => {
+      const btn = document.getElementById('confirm-payment-btn');
+      btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Confirming Order...`;
+      setTimeout(() => {
+        alert("🎉 Order Confirmed! Thank you for ordering with Neem Flowra. Your order #NF-8492 is being prepared for dispatch.");
+        checkoutModal.classList.add('hidden');
+        btn.innerHTML = `<span>COMPLETE ORDER & PAY ₹399</span><i class="fa-solid fa-arrow-right"></i>`;
+      }, 1200);
+    });
+
+    /* ================= ZOOM MODAL ================= */
+    const zoomModal = document.getElementById('image-zoom-modal');
+    const openZoomBtn = document.getElementById('open-zoom-modal-btn');
+    const closeZoomBtn = document.getElementById('close-zoom-modal-btn');
+    const lensContainer = document.getElementById('product-lens-container');
+
+    openZoomBtn.addEventListener('click', () => zoomModal.classList.remove('hidden'));
+    lensContainer.addEventListener('click', () => zoomModal.classList.remove('hidden'));
+    closeZoomBtn.addEventListener('click', () => zoomModal.classList.add('hidden'));
+    zoomModal.addEventListener('click', (e) => {
+      if (e.target === zoomModal) zoomModal.classList.add('hidden');
+    });
+  </script>
+</body>
+</html>
